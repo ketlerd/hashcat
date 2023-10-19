@@ -154,7 +154,7 @@ static void main_log_advice (MAYBE_UNUSED hashcat_ctx_t *hashcat_ctx, MAYBE_UNUS
 {
   const user_options_t *user_options = hashcat_ctx->user_options;
 
-  if (user_options->advice_disable == true) return;
+  if (user_options->advice == false) return;
 
   main_log (hashcat_ctx, stdout, LOGLEVEL_ADVICE);
 }
@@ -563,7 +563,12 @@ static void main_outerloop_mainscreen (MAYBE_UNUSED hashcat_ctx_t *hashcat_ctx, 
   {
     event_log_advice (hashcat_ctx, "ATTENTION! Potfile storage is disabled for this hash mode.");
     event_log_advice (hashcat_ctx, "Passwords cracked during this session will NOT be stored to the potfile.");
-    event_log_advice (hashcat_ctx, "Consider using -o to save cracked passwords.");
+
+    if(user_options->outfile_chgd == false)
+    {
+      event_log_advice (hashcat_ctx, "Consider using -o to save cracked passwords.");
+    }
+
     event_log_advice (hashcat_ctx, NULL);
   }
 
@@ -571,7 +576,12 @@ static void main_outerloop_mainscreen (MAYBE_UNUSED hashcat_ctx_t *hashcat_ctx, 
   {
     event_log_advice (hashcat_ctx, "ATTENTION! Potfile read/write is disabled for this attack mode.");
     event_log_advice (hashcat_ctx, "Passwords cracked during this session will NOT be stored to the potfile.");
-    event_log_advice (hashcat_ctx, "Consider using -o to save cracked passwords.");
+
+    if(user_options->outfile_chgd == false)
+    {
+      event_log_advice (hashcat_ctx, "Consider using -o to save cracked passwords.");
+    }
+
     event_log_advice (hashcat_ctx, NULL);
   }
   /**

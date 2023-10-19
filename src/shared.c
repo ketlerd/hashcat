@@ -19,6 +19,10 @@
 #include <sys/sysctl.h>
 #endif
 
+#if defined (_WIN)
+#include <winsock2.h>
+#endif
+
 static const char *const PA_000 = "OK";
 static const char *const PA_001 = "Ignored due to comment";
 static const char *const PA_002 = "Ignored due to zero length";
@@ -593,7 +597,7 @@ void setup_environment_variables (const folder_config_t *folder_config)
   #endif
 }
 
-void setup_umask ()
+void setup_umask (void)
 {
   umask (077);
 }
@@ -677,7 +681,7 @@ void hc_string_trim_trailing (char *s)
   s[new_len] = 0;
 }
 
-int hc_get_processor_count ()
+int hc_get_processor_count (void)
 {
   int cnt = 0;
 
@@ -908,7 +912,11 @@ int select_read_timeout (int sockfd, const int sec)
   fd_set fds;
 
   FD_ZERO (&fds);
+#if defined(_WIN)
+  FD_SET ((SOCKET)sockfd, &fds);
+#else
   FD_SET (sockfd, &fds);
+#endif
 
   return select (sockfd + 1, &fds, NULL, NULL, &tv);
 }
@@ -923,7 +931,11 @@ int select_write_timeout (int sockfd, const int sec)
   fd_set fds;
 
   FD_ZERO (&fds);
+#if defined(_WIN)
+  FD_SET ((SOCKET)sockfd, &fds);
+#else
   FD_SET (sockfd, &fds);
+#endif
 
   return select (sockfd + 1, NULL, &fds, NULL, &tv);
 }

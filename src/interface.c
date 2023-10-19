@@ -282,12 +282,12 @@ int hashconfig_init (hashcat_ctx_t *hashcat_ctx)
     }
   }
 
-  if (user_options->multiply_accel_disable == true)
+  if (user_options->multiply_accel == false)
   {
     hashconfig->opts_type |= OPTS_TYPE_MP_MULTI_DISABLE;
   }
 
-  if (user_options->self_test_disable == true)
+  if (user_options->self_test == false)
   {
     hashconfig->opts_type |= OPTS_TYPE_SELF_TEST_DISABLE;
   }
@@ -469,18 +469,18 @@ int hashconfig_init (hashcat_ctx_t *hashcat_ctx)
   {
     const int hook_threads = (int) user_options->hook_threads;
 
-    module_ctx->hook_extra_params = (void *) hccalloc (hook_threads, sizeof (void *));
+    module_ctx->hook_extra_params = hccalloc (hook_threads, sizeof (void *));
 
     for (int i = 0; i < hook_threads; i++)
     {
-      module_ctx->hook_extra_params[i] = (void *) hcmalloc (hashconfig->hook_extra_param_size);
+      module_ctx->hook_extra_params[i] = hcmalloc (hashconfig->hook_extra_param_size);
     }
   }
   else
   {
-    module_ctx->hook_extra_params = (void *) hccalloc (1, sizeof (void *));
+    module_ctx->hook_extra_params = hccalloc (1, sizeof (void *));
 
-    module_ctx->hook_extra_params[0] = (void *) hcmalloc (1);
+    module_ctx->hook_extra_params[0] = hcmalloc (1);
   }
 
   if (module_ctx->module_hook_extra_param_init != MODULE_DEFAULT)
