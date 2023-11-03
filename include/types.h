@@ -680,18 +680,18 @@ typedef enum user_options_defaults
   BACKEND_IGNORE_OPENCL    = false,
   BACKEND_INFO             = 0,
   BACKEND_VECTOR_WIDTH     = 0,
-  OPTIMIZED_KERNEL_ENABLE  = false,
+  OPTIMIZED_KERNEL         = false,
   MULTIPLY_ACCEL           = true,
   OUTFILE_AUTOHEX          = true,
   OUTFILE_CHECK_TIMER      = 5,
   OUTFILE_FORMAT           = 3,
   OUTFILE_JSON             = false,
-  POTFILE_DISABLE          = false,
+  POTFILE                  = true,
   PROGRESS_ONLY            = false,
   QUIET                    = false,
   REMOVE                   = false,
   REMOVE_TIMER             = 60,
-  RESTORE_DISABLE          = false,
+  RESTORE_ENABLE           = true,
   RESTORE                  = false,
   RESTORE_TIMER            = 1,
   RP_GEN                   = 0,
@@ -2351,16 +2351,16 @@ typedef struct user_options
   bool         backend_ignore_hip;
   bool         backend_ignore_metal;
   bool         backend_ignore_opencl;
-  bool         optimized_kernel_enable;
+  bool         optimized_kernel;
   bool         multiply_accel;
   bool         outfile_autohex;
   bool         outfile_json;
-  bool         potfile_disable;
+  bool         potfile;
   bool         progress_only;
   bool         quiet;
   bool         remove;
   bool         restore;
-  bool         restore_disable;
+  bool         restore_enable;
   bool         self_test;
   bool         show;
   bool         slow_candidates;
