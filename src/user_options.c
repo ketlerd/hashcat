@@ -54,6 +54,7 @@ static const struct option long_options[] =
   {"debug-file",                required_argument, NULL, IDX_DEBUG_FILE},
   {"debug-mode",                required_argument, NULL, IDX_DEBUG_MODE},
   {"deprecated-check-disable",  no_argument,       NULL, IDX_DEPRECATED_CHECK_DISABLE},
+  {"dynamic-x",                 no_argument,       NULL, IDX_DYNAMIC_X},
   {"encoding-from",             required_argument, NULL, IDX_ENCODING_FROM},
   {"encoding-to",               required_argument, NULL, IDX_ENCODING_TO},
   {"example-hashes",            no_argument,       NULL, IDX_HASH_INFO}, // alias of hash-info
@@ -205,6 +206,7 @@ int user_options_init (hashcat_ctx_t *hashcat_ctx)
   user_options->debug_file                = NULL;
   user_options->debug_mode                = DEBUG_MODE;
   user_options->deprecated_check          = DEPRECATED_CHECK;
+  user_options->dynamic_x                 = DYNAMIC_X;
   user_options->encoding_from             = ENCODING_FROM;
   user_options->encoding_to               = ENCODING_TO;
   user_options->force                     = FORCE;
@@ -401,6 +403,7 @@ int user_options_getopt (hashcat_ctx_t *hashcat_ctx, int argc, char **argv)
       case IDX_LEFT:                      user_options->left                      = true;                            break;
       case IDX_ADVICE_DISABLE:            user_options->advice                    = false;                           break;
       case IDX_USERNAME:                  user_options->username                  = true;                            break;
+      case IDX_DYNAMIC_X:                 user_options->dynamic_x                 = true;                            break;
       case IDX_REMOVE:                    user_options->remove                    = true;                            break;
       case IDX_REMOVE_TIMER:              user_options->remove_timer              = hc_strtoul (optarg, NULL, 10);
                                           user_options->remove_timer_chgd         = true;                            break;
@@ -3228,6 +3231,7 @@ void user_options_logger (hashcat_ctx_t *hashcat_ctx)
   logfile_top_uint   (user_options->bitmap_max);
   logfile_top_uint   (user_options->bitmap_min);
   logfile_top_uint   (user_options->debug_mode);
+  logfile_top_uint   (user_options->dynamic_x);
   logfile_top_uint   (user_options->hash_info);
   logfile_top_uint   (user_options->force);
   logfile_top_uint   (user_options->hwmon);
